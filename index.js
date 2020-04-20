@@ -11,6 +11,12 @@ const port = process.env.PORT;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+	res.json({
+		ok: true,
+	});
+});
+
 app.post('/bloom', (req, res) => {
 	if (!req.body.email) return false;
 	emailLookup(req.body.email).then(email_data => {
