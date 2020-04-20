@@ -10,13 +10,14 @@ const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static('public'))
 
+// Dummy response for server health check
 app.get('/', (req, res) => {
-	res.json({
-		ok: true,
-	});
+	res.render('./public/index.html')
 });
 
+// Post route for the slack api promises
 app.post('/bloom', (req, res) => {
 	if (!req.body.email) return false;
 	emailLookup(req.body.email).then(email_data => {
@@ -30,7 +31,7 @@ app.post('/bloom', (req, res) => {
 					console.log(message_res);
 					res.json({
 						ok: true,
-						status: 'Message sent.'
+						status: 'message_sent'
 					});
 				});
 			});
