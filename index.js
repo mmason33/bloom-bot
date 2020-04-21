@@ -4,13 +4,15 @@ const emailLookup = require('./slack-api/email-lookup');
 const postMessage = require('./slack-api/post-message');
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 const port = process.env.PORT;
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static('public'))
+app.use(express.static('public'));
+app.use(cors());
 
 // Dummy response for server health check
 app.get('/', (req, res) => {
